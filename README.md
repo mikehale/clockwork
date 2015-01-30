@@ -381,6 +381,17 @@ Current specifications are as follows.
 
 Any suggestion about these specifications is welcome.
 
+If an error is not recoverable you may want to exit and allow your process to be restarted.
+
+```ruby
+error_handler do |error|
+  Airbrake.notify_or_ignore(error)
+  if error.kind_of?(PG::Error)
+    exit 1
+  end
+end
+```
+
 ### error_log_handler
 
 You can add error_log_handler to customize the logging of errors.
