@@ -361,6 +361,18 @@ class ManagerTest < ActiveSupport::TestCase
     end
   end
 
+  test "error logging is configurable" do
+    handler_called = false
+
+    @manager.error_log_handler do |error|
+      handler_called = true
+      assert_equal "yo!", error.message
+    end
+
+    @manager.log_error(RuntimeError.new('yo!'))
+    assert_true handler_called
+  end
+
   describe 'error_handler' do
     setup do
       @errors = []

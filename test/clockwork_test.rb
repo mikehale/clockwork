@@ -80,4 +80,14 @@ class ClockworkTest < Test::Unit::TestCase
     Clockwork.run
     assert $called
   end
+  
+  test 'should pass error_log_handler to the manager' do
+    Clockwork.manager.expects(:error_log_handler).yields.then.returns
+
+    module ::Clockwork
+      error_log_handler do |error| 
+        # log the error in a non-standard way
+      end
+    end
+  end
 end

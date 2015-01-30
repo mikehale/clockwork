@@ -77,8 +77,17 @@ module Clockwork
       events
     end
 
+    def error_log_handler(&block)
+      @error_log_handler = block if block_given?
+      @error_log_handler
+    end
+
     def log_error(e)
-      config[:logger].error(e)
+      if error_log_handler
+        error_log_handler.call(e)
+      else
+        config[:logger].error(e)
+      end
     end
 
     def handle_error(e)

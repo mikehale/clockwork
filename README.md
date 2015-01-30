@@ -381,6 +381,18 @@ Current specifications are as follows.
 
 Any suggestion about these specifications is welcome.
 
+### error_log_handler
+
+You can add error_log_handler to customize the logging of errors.
+
+```ruby
+module Clockwork
+  error_log_handler do |error|
+    puts({clock: true, at: "exception", error: error.message})
+  end
+end
+```
+
 Old style
 ---------
 
