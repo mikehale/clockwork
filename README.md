@@ -393,6 +393,18 @@ module Clockwork
 end
 ```
 
+### log_handler
+
+You can add log_handler to customize the logging of messages.
+
+```ruby
+module Clockwork
+  log_handler do |msg|
+    puts({clock: true, message: msg})
+  end
+end
+```
+
 Old style
 ---------
 

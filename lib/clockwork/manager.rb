@@ -82,6 +82,11 @@ module Clockwork
       @error_log_handler
     end
 
+    def log_handler(&block)
+      @log_handler = block if block_given?
+      @log_handler
+    end
+
     def log_error(e)
       if error_log_handler
         error_log_handler.call(e)
@@ -95,7 +100,11 @@ module Clockwork
     end
 
     def log(msg)
-      config[:logger].info(msg)
+      if log_handler
+        log_handler.call(msg)
+      else
+        config[:logger].info(msg)
+      end
     end
 
     private

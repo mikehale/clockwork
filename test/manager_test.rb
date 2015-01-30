@@ -9,9 +9,7 @@ require 'active_support/test_case'
 class ManagerTest < ActiveSupport::TestCase
   setup do
     @manager = Clockwork::Manager.new
-    class << @manager
-      def log(msg); end
-    end
+    @manager.log_handler {}
     @manager.handler { }
   end
 
@@ -370,6 +368,18 @@ class ManagerTest < ActiveSupport::TestCase
     end
 
     @manager.log_error(RuntimeError.new('yo!'))
+    assert_true handler_called
+  end
+
+  test "logging is configurable" do
+    handler_called = false
+
+    @manager.log_handler do |msg|
+      handler_called = true
+      assert_equal "message", msg
+    end
+
+    @manager.log("message")
     assert_true handler_called
   end
 

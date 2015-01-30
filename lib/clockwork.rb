@@ -38,6 +38,10 @@ module Clockwork
       Clockwork.manager.error_log_handler(&block)
     end
 
+    def log_handler(&block)
+      Clockwork.manager.log_handler(&block)
+    end
+
     def on(event, options={}, &block)
       Clockwork.manager.on(event, options, &block)
     end

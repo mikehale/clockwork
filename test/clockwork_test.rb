@@ -90,4 +90,14 @@ class ClockworkTest < Test::Unit::TestCase
       end
     end
   end
+
+  test 'should pass log_handler to the manager' do
+    Clockwork.manager.expects(:log_handler).yields.then.returns
+
+    module ::Clockwork
+      log_handler do |message|
+        # log the message in a non-standard way
+      end
+    end
+  end
 end
